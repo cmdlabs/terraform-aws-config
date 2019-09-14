@@ -1,0 +1,49 @@
+<!-- vim: set ft=markdown: -->
+# terraform-aws-config
+
+<%= %x{ruby erb/toc.rb erb/README.erb} -%>
+
+## Overview
+
+AWS Config catpures point in time snapshots of the environment to allow for point in time review of configuration. Additionally AWS Config can be utilised for automated action using AWS Config rules.
+
+NOTE: Currently only supports AWS owned / managed rules - http://docs.aws.amazon.com/config/latest/developerguide/managed-rules-by-aws-config.html
+
+Terraform >= 0.12 is required for this module.
+
+## AWS Config - Overview Diagram
+
+![AWSConfig|medium](docs/AWSConfig.png)
+
+## AWS Config
+
+### Resources docs
+
+AWS Config automation includes the use of the following core Terraform resources:
+
+- [`aws_config_config_rule`](https://www.terraform.io/docs/providers/aws/r/config_config_rule.html) - Provides an AWS Config Rule.
+- [`aws_config_configuration_recorder_status`](https://www.terraform.io/docs/providers/aws/r/aws_config_configuration_recorder_status.html) - Manages status (recording / stopped) of an AWS Config Configuration Recorder.
+- [`aws_config_configuration_recorder`](https://www.terraform.io/docs/providers/aws/r/config_configuration_recorder.html) - Provides an AWS Config Configuration Recorder.
+- [`aws_config_delivery_channel`](https://www.terraform.io/docs/providers/aws/r/config_delivery_channel.html) - Provides an AWS Config Delivery Channel.
+
+### Inputs
+
+The below outlines the current parameters and defaults.
+
+| Name | Description | Type | Default | Required |
+|------|-------------|:----:|:-------:|:--------:|
+<%= %x{ruby erb/variables2md.rb variables.tf} -%>
+
+### Outputs
+
+|Name|Description|
+|------------|---------------------|
+<%= %x{ruby erb/outputs2md.rb outputs.tf} -%>
+
+### Examples
+
+TODO.
+
+## License
+
+Apache 2.0.
