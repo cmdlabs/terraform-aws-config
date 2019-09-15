@@ -36,23 +36,16 @@ PARAMS
 
 variable "rules" {
   type        = list(string)
-  description = "The list of rules to enable in AWS Config. The names are identical to the ones used by AWS. These are used to name the rules and to refence into the input_parameters and source_idenitifers maps. The default is the minimum recommended list."
+  description = "The list of rules to enable in AWS Config. The default is the minimum recommended list."
   default     = [
-    "cloudtrail-enabled",
-    "iam-password-policy",
+    "acm-certificate-expiration-check",
+    "ec2-instances-in-vpc",
+    "eip-attached",
     "restricted-ssh",
     "root-account-mfa-enabled",
     "s3-bucket-logging-enabled",
-    "s3-bucket-public-read-prohibited",
-    "s3-bucket-public-write-prohibited",
     "s3-bucket-ssl-requests-only",
   ]
-}
-
-variable "rules_count" {
-  type        = number
-  description = "The count of the items in the rules list"
-  default     = 8
 }
 
 variable "scopes" {

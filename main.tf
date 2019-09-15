@@ -32,7 +32,7 @@ resource "aws_config_configuration_recorder_status" "config" {
 }
 
 resource "aws_config_config_rule" "rule" {
-  count            = var.rules_count
+  count            = length(var.rules)
   depends_on       = [aws_config_configuration_recorder.config]
   input_parameters = lookup(var.input_parameters, element(var.rules, count.index), "")
   name             = element(var.rules, count.index)
