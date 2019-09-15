@@ -1,10 +1,5 @@
-locals {
-  bucket_name = "ConfigBucket"
-}
-
-resource "aws_s3_bucket" "config_bucket" {
-  acl    = "log-delivery-write"
-  bucket = local.bucket_name
+resource "aws_s3_bucket" "bucket" {
+  acl    = "private"
 
   lifecycle {
     prevent_destroy = true
@@ -23,16 +18,6 @@ resource "aws_s3_bucket" "config_bucket" {
       days = var.expiration
     }
   }
-
-  logging {
-    target_bucket = aws_s3_bucket.log_bucket.id
-    target_prefix = "s3/${local.bucket_name}/"
-  }
-  tags = var.tags
-}
-
-resource "aws_s3_bucket" "log_bucket" {
-  acl = "private"
 }
 
 data "aws_iam_policy_document" "config" {
@@ -55,14 +40,14 @@ data "aws_iam_policy_document" "config" {
       type = "AWS"
     }
     resources = [
-      aws_s3_bucket.config_bucket.arn,
-      "${aws_s3_bucket.config_bucket.arn}/*",
+      aws_s3_bucket.bucket.arn,
+      "${aws_s3_bucket.bucket.arn}/*",
     ]
     sid = "DenyUnsecuredTransport"
   }
 }
 
 resource "aws_s3_bucket_policy" "config" {
-  bucket = aws_s3_bucket.config_bucket.id
+  bucket = aws_s3_bucket.bucket.id
   policy = data.aws_iam_policy_document.config.json
 }

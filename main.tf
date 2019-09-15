@@ -18,7 +18,7 @@ resource "aws_sns_topic" "config" {
 resource "aws_config_delivery_channel" "config" {
   depends_on     = [aws_config_configuration_recorder.config]
   name           = local.config_name
-  s3_bucket_name = aws_s3_bucket.config_bucket.id
+  s3_bucket_name = aws_s3_bucket.bucket.id
   snapshot_delivery_properties {
     delivery_frequency = var.delivery_frequency
   }

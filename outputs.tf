@@ -1,21 +1,11 @@
-output "config_bucket" {
+output "bucket" {
   description = "The bucket name that config writes output to"
-  value       = aws_s3_bucket.config_bucket.bucket
+  value       = aws_s3_bucket.bucket.bucket
 }
 
-output "config_bucket_arn" {
+output "bucket_arn" {
   description = "The bucket ARN that config writes output to"
-  value       = aws_s3_bucket.config_bucket.arn
-}
-
-output "log_bucket" {
-  description = "The bucket name that logs are written to"
-  value       = aws_s3_bucket.log_bucket.bucket
-}
-
-output "log_bucket_arn" {
-  description = "The bucket ARN that logs are written to"
-  value       = aws_s3_bucket.log_bucket.arn
+  value       = aws_s3_bucket.bucket.arn
 }
 
 output "delivery_channel_id" {

@@ -133,12 +133,6 @@ variable "source_identifiers" {
   }
 }
 
-variable "tags" {
-  type        = map(string)
-  description = "A mapping of tags to assign to created resources"
-  default     = {}
-}
-
 variable "transition_to_glacier" {
   type        = number
   description = "The number of days to wait before transitioning an object to Glacier"
