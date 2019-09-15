@@ -50,17 +50,14 @@ The below outlines the current parameters and defaults.
 |rules_count|The count of the items in the rules list|number|8|No|
 |scopes|This is a map of rule names to scope maps. Each scope can have one or both of the following tuples: (compliance_resource_id, compliance_resource_types), (tag_key, tag_value). This map is merged with a default map in locals, with the values in this map overriding the defaults. Defines which resources can trigger an evaluation for the rules. If you do not specify a scope, evaluations are triggered when any resource in the recording group changes.|"This|{|No|
 |source_identifiers|A map of rule names to source identifiers. For AWS Config managed rules, a predefined identifier from a list. For example, IAM_PASSWORD_POLICY is a managed rule. This map will be merged with a default list in locals, with values in this list overriding those in locals|"DESIRED_INSTANCE_TYPE"|{|No|
-|tags|A mapping of tags to assign to created resources|map(string)|{}|No|
 |transition_to_glacier|The number of days to wait before transitioning an object to Glacier|number|30|No|
 
 ### Outputs
 
 |Name|Description|
 |------------|---------------------|
-|config_bucket|The bucket name that config writes output to|
-|config_bucket_arn|The bucket ARN that config writes output to|
-|log_bucket|The bucket name that logs are written to|
-|log_bucket_arn|The bucket ARN that logs are written to|
+|bucket|The bucket name that config writes output to|
+|bucket_arn|The bucket ARN that config writes output to|
 |delivery_channel_id|The name of the delivery channel|
 |recorder_id|Name of the recorder|
 |rule_arns|The ARNs of the config rules|
