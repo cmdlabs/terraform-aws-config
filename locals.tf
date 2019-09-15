@@ -1,6 +1,4 @@
 locals {
-  config_name = "${var.name}-config"
-
   default_input_parameters = {
     acm-certificate-expiration-check = <<PARAMS
 {

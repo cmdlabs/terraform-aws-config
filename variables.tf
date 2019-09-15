@@ -16,16 +16,6 @@ variable "expiration" {
   default     = 2555
 }
 
-variable "log_bucket" {
-  description = "The log bucket to write S3 logs to"
-  type        = string
-}
-
-variable "name" {
-  description = "The name to use when naming resources"
-  type        = string
-}
-
 variable "input_parameters" {
   type        = map(string)
   description = "A map of strings in JSON format that is passed to the AWS Config rule Lambda function. The map is keyed by the rule names. This is merged with a map contained in locals, with the values supplied here overriding any default values"
