@@ -44,8 +44,6 @@ The below outlines the current parameters and defaults.
 |delivery_frequency|The frequency with which AWS Config recurringly delivers configuration snapshots. May be one of One_Hour, Three_Hours, Six_Hours, Twelve_Hours, or TwentyFour_Hours|string|TwentyFour_Hours|No|
 |enable_recorder|Whether the configuration recorder should be enabled or disabled|bool|true|No|
 |expiration|The number of days to wait before expiring an object|number|2555|No|
-|log_bucket|The log bucket to write S3 logs to|string|""|No|
-|name|The name to use when naming resources|string|""|No|
 |input_parameters|A map of strings in JSON format that is passed to the AWS Config rule Lambda function. The map is keyed by the rule names. This is merged with a map contained in locals, with the values supplied here overriding any default values|map(string)|{|No|
 |input_parameters|A map of strings in JSON format that is passed to the AWS Config rule Lambda function. The map is keyed by the rule names. This is merged with a map contained in locals, with the values supplied here overriding any default values|map(string)|{|No|
 |rules|The list of rules to enable in AWS Config. The names are identical to the ones used by AWS. These are used to name the rules and to refence into the input_parameters and source_idenitifers maps. The default is the minimum recommended list.|list(string)|[|No|
@@ -59,8 +57,10 @@ The below outlines the current parameters and defaults.
 
 |Name|Description|
 |------------|---------------------|
-|bucket|The bucket name that config writes output to|
-|bucket_arn|The bucket ARN that config writes output to|
+|config_bucket|The bucket name that config writes output to|
+|config_bucket_arn|The bucket ARN that config writes output to|
+|log_bucket|The bucket name that logs are written to|
+|log_bucket_arn|The bucket ARN that logs are written to|
 |delivery_channel_id|The name of the delivery channel|
 |recorder_id|Name of the recorder|
 |rule_arns|The ARNs of the config rules|
