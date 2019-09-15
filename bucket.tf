@@ -1,4 +1,3 @@
-
 resource "aws_s3_bucket" "config" {
   acl    = "log-delivery-write"
   bucket = local.config_name
