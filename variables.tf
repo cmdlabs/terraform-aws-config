@@ -21,3 +21,24 @@ variable "transition_to_glacier" {
   description = "The number of days to wait before transitioning an object to Glacier"
   default     = 30
 }
+
+variable "config_rules" {
+  type        = map(any)
+  description = "A list of config rules. By not specifying, a minimum set of recommended rules are applied"
+  default     = {
+    eip_attached = {
+      name = "eip_attached"
+      source = {
+        owner             = "AWS"
+        source_identifier = "EIP_ATTACHED"
+      }
+    }
+    encrypted_volumes = {
+      name = "encrypted_volumes"
+      source = {
+        owner             = "AWS"
+        source_identifier = "ENCRYPTED_VOLUMES"
+      }
+    }
+  }
+}

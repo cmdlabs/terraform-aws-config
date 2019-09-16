@@ -18,7 +18,7 @@ AWS Config catpures point in time snapshots of the environment to allow for poin
 
 NOTE: Currently only supports AWS owned / managed rules - http://docs.aws.amazon.com/config/latest/developerguide/managed-rules-by-aws-config.html
 
-Terraform >= 0.12 is required for this module.
+Terraform >= 0.12.6 is required for this module.
 
 ## AWS Config - Overview Diagram
 
@@ -45,6 +45,7 @@ The below outlines the current parameters and defaults.
 |enable_recorder|Whether the configuration recorder should be enabled or disabled|bool|true|No|
 |expiration|The number of days to wait before expiring an object|number|2555|No|
 |transition_to_glacier|The number of days to wait before transitioning an object to Glacier|number|30|No|
+|config_rules|A list of config rules. By not specifying, a minimum set of recommended rules are applied|map(any)|(map)|No|
 
 ### Outputs
 
