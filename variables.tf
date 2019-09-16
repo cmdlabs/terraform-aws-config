@@ -27,17 +27,73 @@ variable "config_rules" {
   description = "A list of config rules. By not specifying, a minimum set of recommended rules are applied"
   default     = {
     eip_attached = {
-      name = "eip_attached"
+      name = "eip-attached"
       source = {
         owner             = "AWS"
         source_identifier = "EIP_ATTACHED"
       }
+      scope = {
+        compliance_resource_types = ["AWS::EC2::EIP"]
+      }
     }
     encrypted_volumes = {
-      name = "encrypted_volumes"
+      name = "encrypted-volumes"
       source = {
         owner             = "AWS"
         source_identifier = "ENCRYPTED_VOLUMES"
+      }
+      scope = {
+        compliance_resource_types = ["AWS::EC2::SecurityGroup"]
+      }
+    }
+    s3_bucket_logging_enabled = {
+      name = "s3-bucket-logging-enabled"
+      source = {
+        owner             = "AWS"
+        source_identifier = "S3_BUCKET_LOGGING_ENABLED"
+      }
+      scope = {
+        compliance_resource_types = ["AWS::S3::Bucket"]
+      }
+    }
+    acm_certificate_expiration_check = {
+      name = "acm-certificate-expiration-check"
+      source = {
+        owner             = "AWS"
+        source_identifier = "ACM_CERTIFICATE_EXPIRATION_CHECK"
+      }
+      scope = {
+        compliance_resource_types = ["AWS::ACM::Certificate"]
+      }
+    }
+    ec2_instances_in_vpc = {
+      name = "ec2-instances-in-vpc"
+      source = {
+        owner             = "AWS"
+        source_identifier = "INSTANCES_IN_VPC"
+      }
+      scope = {
+        compliance_resource_types = ["AWS::EC2::Instance"]
+      }
+    }
+    s3_bucket_ssl_requests_only = {
+      name = "s3-bucket-ssl-requests-only"
+      source = {
+        owner             = "AWS"
+        source_identifier = "S3_BUCKET_SSL_REQUESTS_ONLY"
+      }
+      scope = {
+        compliance_resource_types = ["AWS::S3::Bucket"]
+      }
+    }
+    root_account_mfa_enabled = {
+      name = "root-account-mfa-enabled"
+      source = {
+        owner             = "AWS"
+        source_identifier = "ROOT_ACCOUNT_MFA_ENABLED"
+      }
+      scope = {
+        compliance_resource_types = ["AWS::S3::Bucket"]
       }
     }
   }
