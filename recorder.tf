@@ -11,17 +11,17 @@ resource "aws_config_configuration_recorder" "config" {
 }
 
 resource "aws_config_delivery_channel" "config" {
-  depends_on     = [aws_config_configuration_recorder.config]
   name           = local.config_name
   s3_bucket_name = aws_s3_bucket.bucket.id
   snapshot_delivery_properties {
     delivery_frequency = var.delivery_frequency
   }
   sns_topic_arn = aws_sns_topic.config.arn
+  depends_on     = [aws_config_configuration_recorder.config]
 }
 
 resource "aws_config_configuration_recorder_status" "config" {
-  depends_on = [aws_config_delivery_channel.config]
   is_enabled = var.enable_recorder
   name       = aws_config_configuration_recorder.config.name
+  depends_on = [aws_config_delivery_channel.config]
 }
