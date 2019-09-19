@@ -8,11 +8,12 @@
   def filter(remote, file_name)
     %x[sed -E '
       s!source( +)=.*!source\\1= "#{remote}"!
-      /bucket_name/ {
+      /variable "bucket_name"/ {
         N
         N
-        s/"bucket_name" {.*/"bucket_name" {}/
-      }' #{file_name}]
+        s/{.*/{}/
+      }
+      ' #{file_name}]
   end
 
   remote = %x{git remote -v}.split("\n")[0].split[1]

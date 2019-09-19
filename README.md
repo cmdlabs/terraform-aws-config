@@ -84,6 +84,8 @@ module "aggregator" {
   aggregator_account_id     = var.aggregator_account_id
   aggregator_account_region = "ap-southeast-2"
   source_account_ids        = [var.source_account_id]
+  bucket_name               = var.bucket_name
+}
 ```
 
 To apply that:
@@ -103,6 +105,8 @@ variable "bucket_name" {}
 module "source" {
   source        = "git@github.com:cmdlabs/terraform-aws-config.git"
   is_aggregator = false
+  bucket_name   = var.bucket_name
+}
 ```
 
 To apply that:
