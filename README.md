@@ -10,6 +10,8 @@
     * [Inputs](#inputs)
     * [Outputs](#outputs)
     * [Examples](#examples)
+        - [Aggregator Account](#aggregator-account)
+        - [Source Account](#source-account)
 4. [License](#license)
 
 ## Overview
@@ -51,6 +53,7 @@ The below outlines the current parameters and defaults.
 |aggregator_account_id|The AWS Account ID of the aggregator account|string|null|No|
 |aggregator_account_region|The AWS Region of the aggregator account|string|null|No|
 |source_account_ids|List of 12-digit account IDs of the accounts being aggregated|list(string)|[]|No|
+|bucket_name|The bucket name - required by both aggregator and source accounts|string|""|No|
 |config_rules|A list of config rules. By not specifying, a minimum set of recommended rules are applied|map(any)|(map)|No|
 
 ### Outputs
@@ -65,7 +68,55 @@ The below outlines the current parameters and defaults.
 
 ### Examples
 
-TODO.
+#### Aggregator Account
+
+A Config account configured as an Aggregator:
+
+```tf
+variable "aggregator_account_id" {}
+variable "source = "git@github.com:cmdlabs/terraform-aws-config.git"
+
+variable "bucket_name" {
+  default = "config-bucket-1c5a1978-d138-4084-a3b4-fd4c403a89a0"
+}
+
+module "aggregator" {
+  source = "git@github.com:cmdlabs/terraform-aws-config.git"
+  is_aggregator             = true
+  aggregator_account_id     = var.aggregator_account_id
+  aggregator_account_region = "ap-southeast-2"
+  source = "git@github.com:cmdlabs/terraform-aws-config.git"
+  bucket_name               = var.bucket_name
+}
+```
+
+To apply that:
+
+```text
+▶ TF_VAR_aggregator_account_id=xxxxxxxxxxxx TF_VAR_source_account_id=yyyyyyyyyyyy terraform apply
+```
+
+#### Source Account
+
+Then a Config Source that points to its S3 bucket:
+
+```tf
+variable "bucket_name" {
+  default = "config-bucket-1c5a1978-d138-4084-a3b4-fd4c403a89a0"
+}
+
+module "source = "git@github.com:cmdlabs/terraform-aws-config.git"
+  source = "git@github.com:cmdlabs/terraform-aws-config.git"
+  is_aggregator = false
+  bucket_name   = var.bucket_name
+}
+```
+
+To apply that:
+
+```text
+▶ terraform apply
+```
 
 ## License
 

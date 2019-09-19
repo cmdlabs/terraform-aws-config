@@ -44,7 +44,34 @@ The below outlines the current parameters and defaults.
 
 ### Examples
 
-TODO.
+#### Aggregator Account
+
+A Config account configured as an Aggregator:
+
+```tf
+<% remote = %x{git remote -v}.split("\n")[0].split[1] -%>
+<%= %x{sed 's!source.*!source = "#{remote}"!' examples/aggregator_account/main.tf} -%>
+```
+
+To apply that:
+
+```text
+▶ TF_VAR_aggregator_account_id=xxxxxxxxxxxx TF_VAR_source_account_id=yyyyyyyyyyyy terraform apply
+```
+
+#### Source Account
+
+Then a Config Source that points to its S3 bucket:
+
+```tf
+<%= %x{sed 's!source.*!source = "#{remote}"!' examples/source_account/main.tf} -%>
+```
+
+To apply that:
+
+```text
+▶ terraform apply
+```
 
 ## License
 
