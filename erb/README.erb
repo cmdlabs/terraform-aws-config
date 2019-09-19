@@ -48,9 +48,20 @@ The below outlines the current parameters and defaults.
 
 A Config account configured as an Aggregator:
 
+<%
+  def filter(remote, file_name)
+    %x[sed -E '
+      s!source( +)=.*!source\\1= "#{remote}"!
+      /bucket_name/ {
+        N
+        N
+        s/"bucket_name" {.*/"bucket_name" {}/
+      }' #{file_name}]
+  end
+-%>
 ```tf
 <% remote = %x{git remote -v}.split("\n")[0].split[1] -%>
-<%= %x{sed 's!source  *.*!source = "#{remote}"!' examples/aggregator_account/main.tf} -%>
+<%= filter(remote, 'examples/aggregator_account/main.tf') -%>
 ```
 
 To apply that:
@@ -64,7 +75,7 @@ To apply that:
 Then a Config Source that points to its S3 bucket:
 
 ```tf
-<%= %x{sed 's!source  .*!source = "#{remote}"!' examples/source_account/main.tf} -%>
+<%= filter(remote, 'examples/source_account/main.tf') -%>
 ```
 
 To apply that:

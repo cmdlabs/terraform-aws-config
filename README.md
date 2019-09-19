@@ -76,18 +76,14 @@ A Config account configured as an Aggregator:
 variable "aggregator_account_id" {}
 variable "source_account_id" {}
 
-variable "bucket_name" {
-  default = "config-bucket-1c5a1978-d138-4084-a3b4-fd4c403a89a0"
-}
+variable "bucket_name" {}
 
 module "aggregator" {
-  source = "git@github.com:cmdlabs/terraform-aws-config.git"
+  source                    = "git@github.com:cmdlabs/terraform-aws-config.git"
   is_aggregator             = true
   aggregator_account_id     = var.aggregator_account_id
   aggregator_account_region = "ap-southeast-2"
   source_account_ids        = [var.source_account_id]
-  bucket_name               = var.bucket_name
-}
 ```
 
 To apply that:
@@ -101,15 +97,11 @@ To apply that:
 Then a Config Source that points to its S3 bucket:
 
 ```tf
-variable "bucket_name" {
-  default = "config-bucket-1c5a1978-d138-4084-a3b4-fd4c403a89a0"
-}
+variable "bucket_name" {}
 
 module "source" {
-  source = "git@github.com:cmdlabs/terraform-aws-config.git"
+  source        = "git@github.com:cmdlabs/terraform-aws-config.git"
   is_aggregator = false
-  bucket_name   = var.bucket_name
-}
 ```
 
 To apply that:
