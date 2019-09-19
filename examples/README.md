@@ -2,11 +2,13 @@
 
 ## Multi-account example
 
+The two examples in this directory assume two AWS accounts and set up a Config Aggregator in one account and a Source Account that points to its S3 Bucket in the other.
+
 ### Aggregator account
 
-The example in [./aggregator_account](./aggregator_account) directory assumes two AWS accounts and sets up a Config Aggregator in one and invites the second account to join as a Config Source account.
+The example in [./aggregator_account](./aggregator_account) directory assumes two AWS accounts and sets up the Config Aggregator.
 
-So as to avoid committing secrets to the revision history, environment variables need to be used to pass the Account ID and email to this example:
+So as to avoid committing secrets to the revision history, environment variables need to be used to pass the Account ID to this example:
 
 ```text
 ▶ cd ./aggregator_account
@@ -16,9 +18,27 @@ So as to avoid committing secrets to the revision history, environment variables
 
 ### Source account
 
-TODO.
+The example in [./source_account](./source_account) meanwhile sets up the Source Account.
+
+Switch to the second account and then:
+
+```text
+▶ cd ../source_account
+▶ terraform init
+▶ terraform apply
+```
 
 ### Tear down
+
+To tear down the Source Account:
+
+```text
+▶ terraform destroy
+```
+
+TODO. Figure out how to force remove the S3 Bucket.
+
+Then switch to the Aggregator Account and:
 
 ```text
 ▶ cd ../aggregator_account
