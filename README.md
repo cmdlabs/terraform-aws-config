@@ -89,6 +89,7 @@ module "aggregator" {
 To apply that:
 
 ```text
+▶ export TF_VAR_bucket_name=config-bucket-$(uuidgen)  # bucket name must be globally unique
 ▶ TF_VAR_aggregator_account_id=xxxxxxxxxxxx TF_VAR_source_account_id=yyyyyyyyyyyy terraform apply
 ```
 
