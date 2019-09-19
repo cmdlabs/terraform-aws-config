@@ -1,6 +1,8 @@
 resource "aws_s3_bucket" "bucket" {
-  count = var.is_aggregator ? 1 : 0
-  acl   = "private"
+  count  = var.is_aggregator ? 1 : 0
+
+  acl    = "private"
+  bucket = var.bucket_name
 
   lifecycle_rule {
     id      = "log"

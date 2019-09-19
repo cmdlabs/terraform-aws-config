@@ -12,7 +12,7 @@ resource "aws_config_configuration_recorder" "config" {
 
 resource "aws_config_delivery_channel" "config" {
   name           = local.config_name
-  s3_bucket_name = aws_s3_bucket.bucket[0].id
+  s3_bucket_name = var.bucket_name
   snapshot_delivery_properties {
     delivery_frequency = var.delivery_frequency
   }

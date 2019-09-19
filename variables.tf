@@ -46,6 +46,11 @@ variable "source_account_ids" {
   default     = []
 }
 
+variable "bucket_name" {
+  type        = string
+  description = "The bucket name - required by both aggregator and source accounts"
+}
+
 variable "config_rules" {
   type        = map(any)
   description = "A list of config rules. By not specifying, a minimum set of recommended rules are applied"

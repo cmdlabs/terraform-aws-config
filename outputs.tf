@@ -1,6 +1,6 @@
 output "bucket" {
   description = "The bucket name that config writes output to"
-  value       = var.is_aggregator ? aws_s3_bucket.bucket[0].bucket : ""
+  value       = var.bucket_name
 }
 
 output "bucket_arn" {
