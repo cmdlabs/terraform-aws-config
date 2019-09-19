@@ -108,6 +108,7 @@ module "source" {
 To apply that:
 
 ```text
+# $TF_VAR_bucket_name set from above.
 ▶ terraform apply
 ```
 
