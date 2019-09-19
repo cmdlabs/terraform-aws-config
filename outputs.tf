@@ -1,11 +1,11 @@
 output "bucket" {
   description = "The bucket name that config writes output to"
-  value       = aws_s3_bucket.bucket.bucket
+  value       = var.is_aggregator ? aws_s3_bucket.bucket[0].bucket : ""
 }
 
 output "bucket_arn" {
   description = "The bucket ARN that config writes output to"
-  value       = aws_s3_bucket.bucket.arn
+  value       = var.is_aggregator ? aws_s3_bucket.bucket[0].arn : ""
 }
 
 output "delivery_channel_id" {

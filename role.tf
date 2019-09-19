@@ -31,7 +31,7 @@ resource "aws_iam_role_policy" "config" {
 data "aws_iam_policy_document" "role_policy" {
   statement {
     actions   = ["s3:PutObject"]
-    resources = ["${aws_s3_bucket.bucket.arn}/*"]
+    resources = ["${aws_s3_bucket.bucket[0].arn}/*"]
     condition {
       test     = "StringLike"
       variable = "s3:x-amz-acl"
@@ -41,7 +41,7 @@ data "aws_iam_policy_document" "role_policy" {
 
   statement {
     actions   = ["s3:GetBucketAcl"]
-    resources = [aws_s3_bucket.bucket.arn]
+    resources = [aws_s3_bucket.bucket[0].arn]
   }
 
   statement {
