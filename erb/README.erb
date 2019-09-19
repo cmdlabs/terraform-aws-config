@@ -1,4 +1,22 @@
 <!-- vim: set ft=markdown: -->
+<%
+  # A method to reformat the examples source
+  # code suitable for the public doc version.
+  #
+  # Using sed here. Sorry.
+  #
+  def filter(remote, file_name)
+    %x[sed -E '
+      s!source( +)=.*!source\\1= "#{remote}"!
+      /bucket_name/ {
+        N
+        N
+        s/"bucket_name" {.*/"bucket_name" {}/
+      }' #{file_name}]
+  end
+
+  remote = %x{git remote -v}.split("\n")[0].split[1]
+-%>
 # terraform-aws-config
 
 <%= %x{ruby erb/toc.rb erb/README.erb} -%>
@@ -48,19 +66,7 @@ The below outlines the current parameters and defaults.
 
 A Config account configured as an Aggregator:
 
-<%
-  def filter(remote, file_name)
-    %x[sed -E '
-      s!source( +)=.*!source\\1= "#{remote}"!
-      /bucket_name/ {
-        N
-        N
-        s/"bucket_name" {.*/"bucket_name" {}/
-      }' #{file_name}]
-  end
--%>
 ```tf
-<% remote = %x{git remote -v}.split("\n")[0].split[1] -%>
 <%= filter(remote, 'examples/aggregator_account/main.tf') -%>
 ```
 
