@@ -22,6 +22,30 @@ variable "transition_to_glacier" {
   default     = 30
 }
 
+variable "is_aggregator" {
+  type        = bool
+  description = "Whether the account is to be an aggregator or not"
+  default     = false
+}
+
+variable "aggregator_account_id" {
+  type        = string
+  description = "The AWS Account ID of the aggregator account"
+  default     = null
+}
+
+variable "aggregator_account_region" {
+  type        = string
+  description = "The AWS Region of the aggregator account"
+  default     = null
+}
+
+variable "source_account_ids" {
+  type        = list(string)
+  description = "List of 12-digit account IDs of the accounts being aggregated"
+  default     = []
+}
+
 variable "config_rules" {
   type        = map(any)
   description = "A list of config rules. By not specifying, a minimum set of recommended rules are applied"
