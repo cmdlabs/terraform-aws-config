@@ -50,7 +50,7 @@ A Config account configured as an Aggregator:
 
 ```tf
 <% remote = %x{git remote -v}.split("\n")[0].split[1] -%>
-<%= %x{sed 's!source.*!source = "#{remote}"!' examples/aggregator_account/main.tf} -%>
+<%= %x{sed 's!source  *.*!source = "#{remote}"!' examples/aggregator_account/main.tf} -%>
 ```
 
 To apply that:
@@ -64,7 +64,7 @@ To apply that:
 Then a Config Source that points to its S3 bucket:
 
 ```tf
-<%= %x{sed 's!source.*!source = "#{remote}"!' examples/source_account/main.tf} -%>
+<%= %x{sed 's!source  .*!source = "#{remote}"!' examples/source_account/main.tf} -%>
 ```
 
 To apply that:
