@@ -11,6 +11,7 @@ The example in [./aggregator_account](./aggregator_account) directory assumes tw
 So as to avoid committing secrets to the revision history, environment variables need to be used to pass the Account ID to this example:
 
 ```text
+▶ export TF_VAR_bucket_name=config-bucket-"$(uuidgen | tr 'A-Z' 'a-z')"  # bucket name must be globally unique
 ▶ cd ./aggregator_account
 ▶ terraform init
 ▶ TF_VAR_aggregator_account_id=xxxxxxxxxxxx TF_VAR_source_account_id=yyyyyyyyyyyy terraform apply
@@ -36,11 +37,10 @@ To tear down the Source Account:
 ▶ terraform destroy
 ```
 
-TODO. Figure out how to force remove the S3 Bucket.
-
 Then switch to the Aggregator Account and:
 
 ```text
+▶ aws s3 rb s3://"$TF_VAR_bucket_name" --force
 ▶ cd ../aggregator_account
 ▶ TF_VAR_aggregator_account_id=xxxxxxxxxxxx TF_VAR_source_account_id=yyyyyyyyyyyy terraform destroy
 ```
