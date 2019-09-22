@@ -18,7 +18,7 @@ testAggregatorAccount() {
   cd ..
 }
 
-testSourceAccept() {
+testSourceAccount() {
   switchAccount 'SOURCE'
 
   cd source_account
