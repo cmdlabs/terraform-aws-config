@@ -31,7 +31,7 @@ resource "aws_iam_role_policy" "config" {
 data "aws_iam_policy_document" "role_policy" {
   statement {
     actions   = ["s3:PutObject"]
-    resources = ["arn:aws:s3:::${var.bucket_name}/*"]
+    resources = ["arn:aws:s3:::${var.bucket_name}/AWSLogs/*"]
     condition {
       test     = "StringLike"
       variable = "s3:x-amz-acl"
