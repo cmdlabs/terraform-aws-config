@@ -3,7 +3,8 @@
 
 . shunit2/test_helper.sh
 
-export TF_VAR_bucket_name=config-bucket-"$(uuidgen | tr 'A-Z' 'a-z')"  # bucket name must be globally unique
+#export TF_VAR_bucket_name=config-bucket-"$(uuidgen | tr 'A-Z' 'a-z')"  # bucket name must be globally unique
+export TF_VAR_bucket_name=config-bucket-d7b7f28f-4553-4309-8867-c0cdcd5415fe
 
 testAggregatorAccount() {
   switchAccount 'AGGREGATOR'
@@ -16,6 +17,43 @@ testAggregatorAccount() {
   fi
 
   cd ..
+}
+
+testDeliveryChannelIsCreated() {
+  switchAccount 'AGGREGATOR'
+
+  number_of_delivery_channels=$(aws configservice \
+    describe-delivery-channels --query 'length(DeliveryChannels)')
+
+  assertEquals "did not find a delivery channel" \
+    "1" "$number_of_delivery_channels"
+}
+
+testConfigRecorderIsCreated() {
+  switchAccount 'AGGREGATOR'
+
+  read -r role_arn name <<< "$(
+    aws configservice describe-configuration-recorders --query \
+      'ConfigurationRecorders[0].[roleARN, name]' --output text
+  )"
+
+  assertTrue "unexpected roleARN in ConfigurationRecorder" \
+    "grep -q arn:aws:iam.*ConfigRole <<< $role_arn"
+
+  assertEquals "unexpected name in ConfigurationRecorder" \
+    "Config" "$name"
+}
+
+testAWSConfigIsRecording() {
+  switchAccount 'AGGREGATOR'
+
+  read -r recording last_status <<< "$(
+    aws configservice describe-configuration-recorder-status --query \
+      'ConfigurationRecordersStatus[0].[recording, lastStatus]' --output text
+  )"
+
+  assertEquals "ConfigurationRecordersStatus is not recording" "True" "$recording"
+  assertEquals "ConfigurationRecordersStatus lastStatus is not SUCCESS" "SUCCESS" "$last_status"
 }
 
 testSourceAccount() {
