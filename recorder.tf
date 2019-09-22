@@ -1,6 +1,5 @@
 locals {
-  config_name   = "Config"
-  s3_key_prefix = "AWSLogs"
+  config_name = "Config"
 }
 
 resource "aws_config_configuration_recorder" "config" {
@@ -14,7 +13,6 @@ resource "aws_config_configuration_recorder" "config" {
 resource "aws_config_delivery_channel" "config" {
   name           = local.config_name
   s3_bucket_name = var.bucket_name
-  s3_key_prefix  = local.s3_key_prefix
   snapshot_delivery_properties {
     delivery_frequency = var.delivery_frequency
   }
