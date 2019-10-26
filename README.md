@@ -4,8 +4,8 @@
 #### Table of contents
 
 1. [Overview](#overview)
-2. [AWS Config - Overview Diagram](#aws-config---overview-diagram)
-3. [AWS Config](#aws-config)
+2. [Terraform AWS Config - Overview Diagram](#terraform-aws-config---overview-diagram)
+3. [Terraform AWS Config](#terraform-aws-config)
     * [Resources docs](#resources-docs)
     * [Inputs](#inputs)
     * [Outputs](#outputs)
@@ -22,15 +22,15 @@ NOTE: Currently only supports AWS owned / managed rules - http://docs.aws.amazon
 
 Terraform >= 0.12.6 is required for this module.
 
-## AWS Config - Overview Diagram
+## Terraform AWS Config - Overview Diagram
 
 ![AWSConfig|medium](docs/AWSConfig.png)
 
-## AWS Config
+## Terraform AWS Config
 
 ### Resources docs
 
-AWS Config automation includes the use of the following core Terraform resources:
+Terraform AWS Config automation includes use of the following core Terraform resources:
 
 - [`aws_config_aggregate_authorization`](https://www.terraform.io/docs/providers/aws/r/aws_config_aggregate_authorization.html) - Manages an AWS Config Aggregate Authorization.
 - [`aws_config_configuration_aggregator`](https://www.terraform.io/docs/providers/aws/r/aws_config_configuration_aggregator.html) - Manages an AWS Config Configuration Aggregator.
@@ -53,7 +53,7 @@ The below outlines the current parameters and defaults.
 |aggregator_account_id|The AWS Account ID of the aggregator account|string|null|No|
 |aggregator_account_region|The AWS Region of the aggregator account|string|null|No|
 |source_account_ids|List of 12-digit account IDs of the accounts being aggregated|list(string)|[]|No|
-|bucket_name|The bucket name - required by both aggregator and source accounts|string|""|No|
+|bucket_name|The bucket name - required by both aggregator and source accounts|string|""|Yes|
 |config_rules|A list of config rules. By not specifying, a minimum set of recommended rules are applied|map(any)|(map)|No|
 
 ### Outputs

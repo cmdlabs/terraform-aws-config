@@ -30,15 +30,15 @@ NOTE: Currently only supports AWS owned / managed rules - http://docs.aws.amazon
 
 Terraform <%= %x[awk -F '"' '/required_version/ {print $2}' versions.tf].chomp -%> is required for this module.
 
-## AWS Config - Overview Diagram
+## Terraform AWS Config - Overview Diagram
 
 ![AWSConfig|medium](docs/AWSConfig.png)
 
-## AWS Config
+## Terraform AWS Config
 
 ### Resources docs
 
-AWS Config automation includes the use of the following core Terraform resources:
+Terraform AWS Config automation includes use of the following core Terraform resources:
 
 - [`aws_config_aggregate_authorization`](https://www.terraform.io/docs/providers/aws/r/aws_config_aggregate_authorization.html) - Manages an AWS Config Aggregate Authorization.
 - [`aws_config_configuration_aggregator`](https://www.terraform.io/docs/providers/aws/r/aws_config_configuration_aggregator.html) - Manages an AWS Config Configuration Aggregator.
