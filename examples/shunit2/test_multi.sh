@@ -3,6 +3,22 @@
 
 . shunit2/test_helper.sh
 
+vars=(
+  AGGREGATOR_AWS_ACCESS_KEY_ID
+  AGGREGATOR_AWS_SECRET_ACCESS_KEY
+  SOURCE_AWS_ACCESS_KEY_ID
+  SOURCE_AWS_SECRET_ACCESS_KEY
+  TF_VAR_aggregator_account_id
+  TF_VAR_source_account_id
+)
+validateVars
+
+switchAccount() {
+  local role="$1"
+  eval 'export AWS_ACCESS_KEY_ID="$'"$role"'_AWS_ACCESS_KEY_ID"'
+  eval 'export AWS_SECRET_ACCESS_KEY="$'"$role"'_AWS_SECRET_ACCESS_KEY"'
+}
+
 #export TF_VAR_bucket_name=config-bucket-"$(uuidgen | tr 'A-Z' 'a-z')"  # bucket name must be globally unique
 export TF_VAR_bucket_name=config-bucket-d7b7f28f-4553-4309-8867-c0cdcd5415fe
 
