@@ -8,7 +8,7 @@ resource "aws_config_configuration_aggregator" "configuration_aggregator" {
   count = var.is_aggregator ? 1 : 0
   name  = "aggregator"
   account_aggregation_source {
-    account_ids = concat([var.aggregator_account_id], var.source_account_ids)
+    account_ids = distinct(concat([var.aggregator_account_id], var.source_account_ids))
     all_regions = true
   }
 }
