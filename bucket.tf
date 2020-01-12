@@ -1,8 +1,16 @@
 resource "aws_s3_bucket" "bucket" {
-  count  = var.is_aggregator ? 1 : 0
+  count = var.is_aggregator ? 1 : 0
 
   acl    = "private"
   bucket = var.bucket_name
+
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = "AES256"
+      }
+    }
+  }
 
   lifecycle_rule {
     id      = "log"
@@ -39,7 +47,7 @@ data "aws_iam_policy_document" "config" {
   }
 
   statement {
-    actions   = ["s3:PutObject"]
+    actions = ["s3:PutObject"]
     principals {
       type        = "Service"
       identifiers = ["config.amazonaws.com"]
