@@ -3,7 +3,7 @@ resource "aws_s3_bucket" "bucket" {
 
   acl    = "private"
   bucket = var.bucket_name
-  force_destroy = true
+  force_destroy = var.force_destroy
 
   server_side_encryption_configuration {
     rule {
