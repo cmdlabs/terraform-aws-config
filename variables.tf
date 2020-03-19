@@ -51,6 +51,12 @@ variable "bucket_name" {
   description = "The bucket name - required by both aggregator and source accounts"
 }
 
+variable "force_destroy" {
+  type        = bool
+  description = "(Optional) A boolean that indicates all objects should be deleted from the bucket so that the bucket can be destroyed without error. These objects are not recoverable."
+  default     = false
+}
+
 variable "config_rules" {
   type        = map(any)
   description = "A list of config rules. By not specifying, a minimum set of recommended rules are applied"
