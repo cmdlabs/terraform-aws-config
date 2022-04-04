@@ -51,10 +51,22 @@ variable "bucket_name" {
   description = "The bucket name - required by both aggregator and source accounts"
 }
 
+variable "bucket_sse_algorithm" {
+  type        = string
+  description = "The server-side encryption algorithm to use"
+  default     = "AES256"
+}
+
+variable "bucket_kms_master_key" {
+  type        = string
+  description = "The AWS KMS master key ID used for the SSE-KMS encryption"
+  default     = null
+}
+
 variable "config_rules" {
   type        = map(any)
   description = "A list of config rules. By not specifying, a minimum set of recommended rules are applied"
-  default     = {
+  default = {
     eip_attached = {
       name = "eip-attached"
       source = {

@@ -17,7 +17,7 @@ resource "aws_config_delivery_channel" "config" {
     delivery_frequency = var.delivery_frequency
   }
   sns_topic_arn = aws_sns_topic.config.arn
-  depends_on     = [aws_config_configuration_recorder.config]
+  depends_on    = [aws_config_configuration_recorder.config]
 }
 
 resource "aws_config_configuration_recorder_status" "config" {

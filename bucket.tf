@@ -1,20 +1,23 @@
 resource "aws_s3_bucket" "bucket" {
   count = var.is_aggregator ? 1 : 0
 
-  acl    = "private"
   bucket = var.bucket_name
+}
 
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        sse_algorithm = "AES256"
-      }
-    }
-  }
+resource "aws_s3_bucket_acl" "bucket" {
+  count = var.is_aggregator ? 1 : 0
 
-  lifecycle_rule {
-    id      = "log"
-    enabled = true
+  bucket = aws_s3_bucket.bucket[count.index].id
+  acl    = "private"
+}
+
+resource "aws_s3_bucket_lifecycle_configuration" "bucket" {
+  count  = var.is_aggregator ? 1 : 0
+  bucket = aws_s3_bucket.bucket[count.index].id
+
+  rule {
+    id     = "log"
+    status = "Enabled"
 
     transition {
       days          = var.transition_to_glacier
@@ -26,6 +29,20 @@ resource "aws_s3_bucket" "bucket" {
     }
   }
 }
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "bucket" {
+  count = var.is_aggregator ? 1 : 0
+
+  bucket = aws_s3_bucket.bucket[count.index].bucket
+
+  rule {
+    apply_server_side_encryption_by_default {
+      kms_master_key_id = var.bucket_kms_master_key
+      sse_algorithm     = var.bucket_sse_algorithm
+    }
+  }
+}
+
 
 data "aws_iam_policy_document" "config" {
   statement {

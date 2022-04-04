@@ -8,5 +8,5 @@ resource "aws_config_config_rule" "config_rules" {
   scope {
     compliance_resource_types = each.value.scope.compliance_resource_types
   }
-  depends_on = ["aws_config_configuration_recorder.config"]
+  depends_on = [aws_config_configuration_recorder.config]
 }
