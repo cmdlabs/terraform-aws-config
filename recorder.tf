@@ -5,7 +5,9 @@ locals {
 resource "aws_config_configuration_recorder" "config" {
   name = local.config_name
   recording_group {
-    include_global_resource_types = true
+    all_supported                 = var.resource_types != null ? false : true
+    include_global_resource_types = var.resource_types != null ? false : var.include_global_resource_types
+    resource_types                = var.resource_types
   }
   role_arn = aws_iam_role.config_role.arn
 }
@@ -17,7 +19,7 @@ resource "aws_config_delivery_channel" "config" {
     delivery_frequency = var.delivery_frequency
   }
   sns_topic_arn = aws_sns_topic.config.arn
-  depends_on     = [aws_config_configuration_recorder.config]
+  depends_on    = [aws_config_configuration_recorder.config]
 }
 
 resource "aws_config_configuration_recorder_status" "config" {

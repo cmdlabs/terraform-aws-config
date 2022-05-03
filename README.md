@@ -20,7 +20,8 @@ AWS Config catpures point in time snapshots of the environment to allow for poin
 
 NOTE: Currently only supports AWS owned / managed rules - http://docs.aws.amazon.com/config/latest/developerguide/managed-rules-by-aws-config.html
 
-Terraform >= 0.12.6 is required for this module.
+Terraform >= 0.13.0 is required for this module.
+Provider hashicorp/aws >= 0.4.1 is required for this module
 
 ## Terraform AWS Config - Overview Diagram
 
@@ -54,7 +55,11 @@ The below outlines the current parameters and defaults.
 |aggregator_account_region|The AWS Region of the aggregator account|string|null|No|
 |source_account_ids|List of 12-digit account IDs of the accounts being aggregated|list(string)|[]|No|
 |bucket_name|The bucket name - required by both aggregator and source accounts|string|""|Yes|
+|bucket_sse_algorithm|The server-side encryption algorithm to use|string|AES256|No|
+|bucket_kms_master_key|The AWS KMS master key ID used for the SSE-KMS encryption|string|null|No|
 |config_rules|A list of config rules. By not specifying, a minimum set of recommended rules are applied|map(any)|(map)|No|
+|include_global_resource_types|Specifies config includes al suported tpes of global resources|bool|true|No|
+| resource_types | List if resources to record | list(string) | null | No |
 
 ### Outputs
 
