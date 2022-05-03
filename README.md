@@ -58,6 +58,8 @@ The below outlines the current parameters and defaults.
 |bucket_sse_algorithm|The server-side encryption algorithm to use|string|AES256|No|
 |bucket_kms_master_key|The AWS KMS master key ID used for the SSE-KMS encryption|string|null|No|
 |config_rules|A list of config rules. By not specifying, a minimum set of recommended rules are applied|map(any)|(map)|No|
+|include_global_resource_types|Specifies config includes al suported tpes of global resources|bool|true|No|
+| resource_types | List if resources to record | list(string) | null | No |
 
 ### Outputs
 

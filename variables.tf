@@ -139,3 +139,15 @@ variable "config_rules" {
     }
   }
 }
+
+variable "include_global_resource_types" {
+  type        = bool
+  description = "Specifies whether AWS Config includes all supported types of global resources with the resources that it records"
+  default     = true
+}
+
+variable "resource_types" {
+  description = "A list that specifies the types of AWS resources for which AWS Config records configuration changes (for example, AWS::EC2::Instance or AWS::CloudTrail::Trail)"
+  type        = list(string)
+  default     = null
+}

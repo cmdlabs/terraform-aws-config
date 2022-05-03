@@ -5,7 +5,9 @@ locals {
 resource "aws_config_configuration_recorder" "config" {
   name = local.config_name
   recording_group {
-    include_global_resource_types = true
+    all_supported                 = var.resource_types != null ? false : true
+    include_global_resource_types = var.resource_types != null ? false : var.include_global_resource_types
+    resource_types                = var.resource_types
   }
   role_arn = aws_iam_role.config_role.arn
 }
